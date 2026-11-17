@@ -21,7 +21,7 @@ def sommerfeld(M, v_rel, V_inf, V_eff, x_inf=100.0):
         raise ValueError("v_rel must be in (0, 1).")
 
     # Beneke conventions
-    v = v_rel / 2.0
+    v = v_rel * 2.0
     E = M * v**2
 
     # Dimensionless wave numbers
@@ -78,6 +78,14 @@ def sommerfeld(M, v_rel, V_inf, V_eff, x_inf=100.0):
     P = P_flat.reshape(n, n)
 
     # Eq. (117)
-    T = P @ np.diag(np.exp(-1j*k*x_inf))
+    thresholds = np.diag(V_inf)
+    open_channels = E > np.diag(V_inf)
+
+    T = np.zeros((n, n), dtype=complex)
+
+    T[:, open_channels] = (
+        P[:, open_channels]
+        * np.exp(-1j * k[open_channels] * x_inf)[None, :]
+    )
 
     return T
