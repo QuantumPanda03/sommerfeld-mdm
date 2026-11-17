@@ -21,7 +21,7 @@ def sommerfeld(M, v_rel, V_inf, V_eff, x_inf=100.0):
         raise ValueError("v_rel must be in (0, 1).")
 
     # Beneke conventions
-    v = v_rel * 2.0
+    v = v_rel / 2.0
     E = M * v**2
 
     # Dimensionless wave numbers
@@ -29,7 +29,7 @@ def sommerfeld(M, v_rel, V_inf, V_eff, x_inf=100.0):
     K = np.diag(k)
 
     # Initial conditions
-    x0 = 1e-7
+    x0 = 1e-9
 
     N0 = x0 * I
     P0 = I.copy()
@@ -59,9 +59,9 @@ def sommerfeld(M, v_rel, V_inf, V_eff, x_inf=100.0):
         rhs,
         (x0, x_inf),
         y0,
-        method="DOP853",
-        rtol=1e-9,
-        atol=1e-11
+        method="BDF",
+        rtol=1e-10,
+        atol=1e-12
     )
 
     if not sol.success:
