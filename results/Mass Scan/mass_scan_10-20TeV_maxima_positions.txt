@@ -1,0 +1,3 @@
+Maximum S3 in range 10000-12000 GeV: 191454.7400 at mass 11535.10 GeV
+Maximum S3 in range 14000-16000 GeV: 184917.7050 at mass 15241.87 GeV
+Maximum S3 in range 17000-20000 GeV: 157726.6774 at mass 18654.16 GeV
